@@ -5,4 +5,15 @@ export const HeaderApp = styled('header', {
   width: '100%',
   maxWidth: 1180,
   margin: '0 auto',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+})
+
+export const CartBadge = styled('div', {
+  backgroundColor: '$gray800',
+  border: 'none',
+  borderRadius: 6,
+  padding: '0.625rem',
 })

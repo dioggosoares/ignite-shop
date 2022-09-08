@@ -1,23 +1,23 @@
 .arrow {
-  width: 30px;
-  height: 30px;
+  width: 3rem;
+  height: 3rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
-  fill: #fff;
+  fill: #c4c4cc;
   cursor: pointer;
 }
 
-.arrowleft {
+.arrowLeft {
   left: 5px;
 }
 
-.arrowright {
+.arrowRight {
   left: auto;
   right: 5px;
 }
 
-.arrowdisabled {
-  fill: rgba(255, 255, 255, 0.5);
+.arrowDisabled {
+  fill: #c4c4cc20;
 }
