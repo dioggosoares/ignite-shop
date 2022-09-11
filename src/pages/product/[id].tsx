@@ -10,6 +10,7 @@ import { stripe } from '../../services/stripe'
 import { ProductProps } from '../../@types/Product'
 import { currencyFormatter } from '../../utils/currencyFormatter'
 
+import { Spinning } from '../../components/Spinning'
 import {
   ImageContainer,
   ProductContainer,
@@ -17,24 +18,29 @@ import {
 } from '../../styles/pages/product'
 
 export default function Product({ product }: ProductProps) {
+  const [isLoading, setIsloading] = useState(false)
   const [isCreatingCheckoutSession, setisCreatingCheckoutSession] =
     useState(false)
 
   async function handleBuyProduct() {
+    setIsloading(true)
     try {
       setisCreatingCheckoutSession(true)
 
       const response = await axios.post('/api/checkout', {
         priceId: product.defaultPriceId,
       })
-
-      const { checkoutUrl } = response.data
-
-      window.location.href = checkoutUrl
+      console.log(response)
+      if (response) {
+        setIsloading(false)
+        const { checkoutUrl } = response.data
+        window.location.href = checkoutUrl
+      }
     } catch (err) {
       // conectar a uma ferramenta de observabilidade (Datadog /Sentry)
       setisCreatingCheckoutSession(false)
       alert('Falha ao redirecionar ao checkout')
+      setIsloading(false)
     }
   }
 
@@ -44,7 +50,6 @@ export default function Product({ product }: ProductProps) {
       <Head>
         <title>{winTitle}</title>
       </Head>
-
       <ProductContainer>
         <ImageContainer>
           <Image src={product.imageUrl} width={520} height={480} alt="" />
@@ -60,7 +65,7 @@ export default function Product({ product }: ProductProps) {
             disabled={isCreatingCheckoutSession}
             onClick={handleBuyProduct}
           >
-            Comprar agora
+            {isLoading ? <Spinning /> : 'Comprar agora'}
           </button>
         </ProductDetails>
       </ProductContainer>

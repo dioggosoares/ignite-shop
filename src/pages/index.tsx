@@ -33,7 +33,7 @@ export default function Home({ products }: HomeProps) {
       setLoaded(true)
     },
     slides: {
-      perView: 3,
+      perView: 2,
       spacing: 48,
     },
   })
